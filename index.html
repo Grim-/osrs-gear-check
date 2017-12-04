@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="0">
+    <meta name="author" content="0">
+
+    <title>Bare - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/opentip.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link href="css/selectize.bootstrap3.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
+
+
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/selectize.js"></script>
+    <script src="js/bootbox.min.js"></script>
+    <script src="js/opentip-jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+
+    <!-- JSON FILES INCLUDED -->
+    <!-- <script src="item-json/OSRS_ITEMS_ALL.json"></script>
+    <script src="item-json/OSRS_ITEMS_AMMO.json"></script>
+    <script src="item-json/OSRS_ITEMS_BODY.json"></script>
+    <script src="item-json/OSRS_ITEMS_CAPE.json"></script>
+    <script src="item-json/OSRS_ITEMS_FEET.json"></script>
+    <script src="item-json/OSRS_ITEMS_HAND.json"></script>
+    <script src="item-json/OSRS_ITEMS_HEAD.json"></script>
+    <script src="item-json/OSRS_ITEMS_LEG.json"></script>
+    <script src="item-json/OSRS_ITEMS_NECK.json"></script>
+    <script src="item-json/OSRS_ITEMS_RING.json"></script>
+    <script src="item-json/OSRS_ITEMS_SHIELD.json"></script>
+    <script src="item-json/OSRS_ITEMS_TWOHAND.json"></script>
+
+    <script src="item-json/OSRS_ITEMS_WEAPON.json"></script> -->
+    <script type="text/javascript" src="item-json/new/osrs-all-items.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-ammo.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-body.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-feet.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-cape.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-hand.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-head.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-leg.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-neck.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-ring.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-shield.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-twohand.json"></script>
+    <script type="text/javascript" src="item-json/new/osrs-items-weapon.json"></script>
+
+
+  </head>
+
+  <body>
+
+    <aside class="sidebar-left">
+
+      <a class="company-logo" href="#">Gear</a>
+
+      <div class="sidebar-links">
+        <a class="link-blue" href="#" id="save-gear-button"><i class="fa fa-picture-o"></i>Generate URL</a>
+        <a class="link-yellow" href="#"><i class="fa fa-keyboard-o"></i>Compare</a>
+        <a class="link-green" href="#"><i class="fa fa-map-marker"></i>Price</a>
+      </div>
+
+    </aside>
+    <!-- Page Content -->
+    <div class="main-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center page-header">
+            <h4>Header</h4>
+            <p>OSRS Gear Stats Check and Compare</p>
+          </div>
+        </div>
+
+
+
+        <div class="row" style="margin-top:7px;">
+          <div class="col-md-3 text-center">
+            <div id="inventory" class="inventory-container">
+                <h4>Inventory</h4>
+                <div id="head" class="item_slot">
+                    <img src="" class="item_holder" data-element="tooltip" slot="head">
+                    <img src="img/inventory_slots/head_slot.png" alt="0">
+                </div>
+
+                <div id="cape" class="item_slot">
+                <img src="" class="item_holder" data-element="tooltip" slot="cape">
+                    <img src="img/inventory_slots/cape_slot.png" alt="0">
+                </div>
+
+                <div id="neck" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="neck">
+                  <img src="img/inventory_slots/neck_slot.png" alt="0">
+                </div>
+
+                <div id="ammo" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="ammo">
+                  <img src="img/inventory_slots/ammo_slot.png" alt="0">
+                </div>
+
+                <div id="weapon" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="weapon">
+                  <img src="img/inventory_slots/weapon_slot.png" alt="0">
+                </div>
+
+                <div id="chest" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="chest">
+                  <img src="img/inventory_slots/chest_slot.png" alt="0">
+                </div>
+
+                <div id="shield" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="shield">
+                  <img src="img/inventory_slots/shield_slot.png" alt="0">
+                </div>
+
+                <div id="legs" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="legs">
+                  <img src="img/inventory_slots/leg_slot.png" alt="0">
+                </div>
+
+                <div id="hand" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="hand">
+                  <img src="img/inventory_slots/glove_slot.png" alt="0">
+                </div>
+
+                <div id="feet" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="feet">
+                  <img src="img/inventory_slots/boots_slot.png" alt="0">
+                </div>
+
+                <div id="ring" class="item_slot">
+                  <img src="" class="item_holder" data-element="tooltip" slot="ring">
+                  <img src="img/inventory_slots/ring_slot.png" alt="0">
+                </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+
+              <div class="" id="text-stats" style="margin-top:12px">
+                <ul class="list-inline">
+                  <h4 class="list-group-item-heading">Attack</h4>
+                <li class="list-group-item" id="stAtTotal"></li>
+                <li class="list-group-item" id="slAtTotal"></li>
+                <li class="list-group-item" id="cAtTotal"></li>
+                <li class="list-group-item" id="mAtTotal"></li>
+                <li class="list-group-item" id="rAtTotal"></li>
+              </ul>
+              </div>
+
+              <div class="" id="text-stats" style="margin-top:12px">
+                <ul class="list-inline">
+                  <h4 class="list-group-item-heading">Defence</h4>
+                <li class="list-group-item" id="stDeTotal"></li>
+                <li class="list-group-item" id="slDeTotal"></li>
+                <li class="list-group-item" id="cDeTotal"></li>
+                <li class="list-group-item" id="mDeTotal"></li>
+                <li class="list-group-item" id="rDeTotal"></li>
+              </ul>
+              </div>
+
+              <div class="" id="text-stats" style="margin-top:12px">
+                <ul class="list-inline">
+                  <h4 class="list-group-item-heading">Other Bonuses</h4>
+                <li class="list-group-item" id="stBTotal"></li>
+                <li class="list-group-item" id="prBTotal"></li>
+                <li class="list-group-item" id="mBTotal"></li>
+                <li class="list-group-item" id="rBTotal"></li>
+              </ul>
+              </div>
+            </div>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+
+<script src="js/core-ui.js"></script>
+<script src="js/core.js"></script>
+
+</body>
+
+</html>
