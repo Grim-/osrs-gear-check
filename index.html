@@ -1,86 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="0">
-    <meta name="author" content="0">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="0">
+  <meta name="author" content="0">
 
-    <title>OSRS Gear Check and Compare</title>
+  <title>OSRS Gear Check and Compare</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/opentip.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link href="css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="css/bootstrap-select.css" rel="stylesheet">
-
-
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/jquery-ui.js" type="text/javascript"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/selectize.js"></script>
-    <script src="js/bootbox.min.js"></script>
-    <script src="js/opentip-jquery.js"></script>
-    <script src="js/bootstrap-select.min.js"></script>
-
-    <script type="text/javascript" src="item-json/new/osrs-all-items.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-ammo.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-body.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-feet.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-cape.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-hand.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-head.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-leg.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-neck.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-ring.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-shield.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-twohand.json"></script>
-    <script type="text/javascript" src="item-json/new/osrs-items-weapon.json"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/opentip.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link href="css/selectize.bootstrap3.css" rel="stylesheet">
+  <link href="css/bootstrap-select.css" rel="stylesheet">
 
 
-  </head>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/jquery-ui.js" type="text/javascript"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/selectize.js"></script>
+  <script src="js/bootbox.min.js"></script>
+  <script src="js/opentip-jquery.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
 
-  <body>
-
-    <aside class="sidebar-left">
-
-      <a class="company-logo" href="#">Gear</a>
-
-      <div class="sidebar-links">
-        <a class="link-blue" href="#" id="save-gear-button"><i class="fa fa-picture-o"></i>Generate URL</a>
-        <a class="link-yellow" href="#"><i class="fa fa-keyboard-o"></i>Compare</a>
-        <a class="link-green" href="#"><i class="fa fa-map-marker"></i>Price</a>
-      </div>
-
-    </aside>
-    <!-- Page Content -->
-    <div class="main-content">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center page-header">
-            <h4>Header</h4>
-            <p>OSRS Gear Stats Check and Compare</p>
-            <p>Click "Generate URL" in the menu to the left for a URL to share this set with others</p>
-            <p>To add an item <kbd><kbd>left click</kbd></kbd> </p>
-          </div>
-        </div>
+  <script type="text/javascript" src="item-json/new/osrs-all-items.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-ammo.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-body.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-feet.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-cape.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-hand.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-head.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-leg.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-neck.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-ring.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-shield.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-twohand.json"></script>
+  <script type="text/javascript" src="item-json/new/osrs-items-weapon.json"></script>
 
 
+</head>
 
-        <div class="row" style="margin-top:7px;">
-          <div class="col-md-3 text-center">
-            <div id="inventory" class="inventory-container">
+<body>
+
+  <aside class="sidebar-left">
+
+    <a class="company-logo" href="#">Gear</a>
+
+    <div class="sidebar-links">
+      <a class="link-blue" data-toggle="tab" href="#stats-display"><i class="fa fa-picture-o" ></i>Gear Stats</a>
+      <a class="link-yellow" data-toggle="tab" href="#stats-compare"><i class="fa fa-keyboard-o"></i>Compare Sets</a>
+    </div>
+
+  </aside>
+  <!-- Page Content -->
+  <div class="main-content">
+    <div class="container">
+
+      <div class="tab-content">
+        <div id="stats-display" class="tab-pane fade in active">
+          <div class="row" style="margin-top:7px;">
+
+            <div class="col-md-12 text-center page-header">
+              <h4>OSRS Gear Stats Check</h4>
+              <p>Click <kbd><kbd>Generate URL</kbd></kbd> button to the right to generate a url to share your set up with others</p>
+              <p>To add an item <kbd><kbd>left click</kbd></kbd></p>
+              <p>To remove an item <kbd><kbd>right click</kbd></kbd></p>
+            </div>
+
+
+            <div class="col-md-3 text-center">
+              <div id="inventory" class="inventory-container">
                 <h4>Inventory</h4>
                 <div id="head" class="item_slot">
-                    <img src="" class="item_holder" data-element="tooltip" slot="head">
-                    <img src="img/inventory_slots/head_slot.png" alt="0">
+                  <img src="" class="item_holder" data-element="tooltip" slot="head">
+                  <img src="img/inventory_slots/head_slot.png" alt="0">
                 </div>
 
                 <div id="cape" class="item_slot">
-                <img src="" class="item_holder" data-element="tooltip" slot="cape">
-                    <img src="img/inventory_slots/cape_slot.png" alt="0">
+                  <img src="" class="item_holder" data-element="tooltip" slot="cape">
+                  <img src="img/inventory_slots/cape_slot.png" alt="0">
                 </div>
 
                 <div id="neck" class="item_slot">
@@ -127,53 +127,67 @@
                   <img src="" class="item_holder" data-element="tooltip" slot="ring">
                   <img src="img/inventory_slots/ring_slot.png" alt="0">
                 </div>
+              </div>
+
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+
+                <div class="" id="text-stats" style="margin-top:12px">
+                  <ul class="list-inline">
+                    <h4 class="list-group-item-heading">Attack</h4>
+                    <li class="list-group-item" id="stAtTotal"></li>
+                    <li class="list-group-item" id="slAtTotal"></li>
+                    <li class="list-group-item" id="cAtTotal"></li>
+                    <li class="list-group-item" id="mAtTotal"></li>
+                    <li class="list-group-item" id="rAtTotal"></li>
+                  </ul>
+                </div>
+
+                <div class="" id="text-stats" style="margin-top:12px">
+                  <ul class="list-inline">
+                    <h4 class="list-group-item-heading">Defence</h4>
+                    <li class="list-group-item" id="stDeTotal"></li>
+                    <li class="list-group-item" id="slDeTotal"></li>
+                    <li class="list-group-item" id="cDeTotal"></li>
+                    <li class="list-group-item" id="mDeTotal"></li>
+                    <li class="list-group-item" id="rDeTotal"></li>
+                  </ul>
+                </div>
+
+                <div class="" id="text-stats" style="margin-top:12px">
+                  <ul class="list-inline">
+                    <h4 class="list-group-item-heading">Other Bonuses</h4>
+                    <li class="list-group-item" id="stBTotal"></li>
+                    <li class="list-group-item" id="prBTotal"></li>
+                    <li class="list-group-item" id="mBTotal"></li>
+                    <li class="list-group-item" id="rBTotal"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <button type="button" class="btn btn-default" id="save-gear-button">Generate URL</button>
             </div>
 
           </div>
-          <div class="col-md-6">
-            <div class="row">
-
-              <div class="" id="text-stats" style="margin-top:12px">
-                <ul class="list-inline">
-                  <h4 class="list-group-item-heading">Attack</h4>
-                <li class="list-group-item" id="stAtTotal"></li>
-                <li class="list-group-item" id="slAtTotal"></li>
-                <li class="list-group-item" id="cAtTotal"></li>
-                <li class="list-group-item" id="mAtTotal"></li>
-                <li class="list-group-item" id="rAtTotal"></li>
-              </ul>
-              </div>
-
-              <div class="" id="text-stats" style="margin-top:12px">
-                <ul class="list-inline">
-                  <h4 class="list-group-item-heading">Defence</h4>
-                <li class="list-group-item" id="stDeTotal"></li>
-                <li class="list-group-item" id="slDeTotal"></li>
-                <li class="list-group-item" id="cDeTotal"></li>
-                <li class="list-group-item" id="mDeTotal"></li>
-                <li class="list-group-item" id="rDeTotal"></li>
-              </ul>
-              </div>
-
-              <div class="" id="text-stats" style="margin-top:12px">
-                <ul class="list-inline">
-                  <h4 class="list-group-item-heading">Other Bonuses</h4>
-                <li class="list-group-item" id="stBTotal"></li>
-                <li class="list-group-item" id="prBTotal"></li>
-                <li class="list-group-item" id="mBTotal"></li>
-                <li class="list-group-item" id="rBTotal"></li>
-              </ul>
-              </div>
-            </div>
-            </div>
-
-
+        </div>
+        <!-- end of tab1  (stats display)-->
+        <div id="stats-compare" class="tab-pane fade">
+          <div class="col-md-12 text-center page-header">
+            <h4>OSRS Gear  Compare</h4>
+          </div>
         </div>
       </div>
-    </div>
+      <!-- end of tab content -->
 
-<script src="js/core-ui.js"></script>
-<script src="js/core.js"></script>
+
+    </div>
+  </div>
+
+  <script src="js/core-ui.js"></script>
+  <script src="js/core.js"></script>
 
 </body>
 
