@@ -24,6 +24,7 @@ var slotArray = [
 createSlots(slotArray);
 calculateTotals();
 
+//check if there is any id params in url first if so load them
 var params = checkUrlForParams(window.location.href);
 if(params != null)
 {

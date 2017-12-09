@@ -1,3 +1,21 @@
+.bg-container
+{
+ width: 100%;
+ height: 100%;
+}
+.bg-container:after
+{
+  content: "";
+  background-image: url("../img/stone-bg.jpg");
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+  background-size: contain;
+}
 
 .inventory-container
 {
@@ -9,9 +27,12 @@
   border-style: inset;
   border-color: darkslategrey;
 }
-.opentip-container .opentip .header h1 {
+
+.opentip-container .opentip .header h1
+{
   font-size: 20px;
 }
+
 .item_slot
 {
   width: 60px;
@@ -22,14 +43,37 @@
 {
   max-width: 5000px;
 }
+
 .item-name{
   font-size: 20px;
   display: inline-block;
 }
+
 .item_holder
 {
   position: absolute;
   width: 38px;
+}
+
+.stat-diff-positive
+{
+  width: 64px;
+  height: 64px;
+}
+
+.stat-diff-positive > p
+{
+  color: green;
+}
+
+.stat-diff-negative
+{
+  width: 64px;
+  height: 64px;
+}
+.stat-diff-negative > p
+{
+  color: red;
 }
 #head
 {
@@ -160,6 +204,9 @@
 	width: 120px;
 	height: 100%;
 	padding: 20px 0;
+  -webkit-box-shadow: 3px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 3px 0px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 3px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
 .sidebar-left a.company-logo {

@@ -1,7 +1,30 @@
 var Util =
 {
-  createTooltip: createTooltipStats
+  createTooltip: createTooltipStats,
+  icons: icons
 };
+
+
+var icons = [];
+icons["stab-attack"] = "img/icons/stab-icon.png";
+icons["slash-attack"] = "img/icons/slash-icon.png";
+icons["crush-attack"] = "img/icons/crush-icon.png";
+icons["magic-attack"] = "img/icons/magic-icon.png";
+icons["ranged-attack"] = "img/icons/ranged-icon.png";
+
+icons["stab-defence"] = "img/icons/stab-icon.png";
+icons["slash-defence"] = "img/icons/slash-icon.png";
+icons["crush-defence"] = "img/icons/crush-icon.png";
+icons["magic-defence"] = "img/icons/magic-icon.png";
+icons["ranged-defence"] = "img/icons/ranged-icon.png";
+
+icons["prayer-bonus"] = "img/icons/prayer-icon";
+icons["strength-bonus"] = "img/icons/strength-icon";
+icons["ranged-strength"] = "img/icons/rangedstrength-icon";
+icons["magic-strength"] = "img/icons/magicdamage-icon";
+
+
+
 
 function createTooltipStats(stats, data)
 {
@@ -88,27 +111,27 @@ function calculateTotals()
           var desc = itemData.description;
 
           var cAt = parseInt(stats["crush-attack"]);
-          cAtTotal += cAt;
+            cAtTotal += cAt;
           var stAt = parseInt(stats["stab-attack"]);
-          stAtTotal += stAt;
+            stAtTotal += stAt;
           var slAt = parseInt(stats["slash-attack"]);
-          slAtTotal += slAt;
+            slAtTotal += slAt;
           var rAt = parseInt(stats["ranged-attack"]);
-          rAtTotal += rAt;
+            rAtTotal += rAt;
           var mAt = parseInt(stats["magic-attack"]);
-          mAtTotal += mAt;
+            mAtTotal += mAt;
 
 
           var cDe = parseInt(stats["crush-defence"]);
-          cDeTotal += cDe;
+            cDeTotal += cDe;
           var stDe = parseInt(stats["stab-defence"]);
-          stDeTotal += stDe;
+            stDeTotal += stDe;
           var slDe = parseInt(stats["slash-defence"]);
             slDeTotal += slDe;
           var rDe = parseInt(stats["ranged-defence"]);
             rDeTotal += rDe;
           var mDe = parseInt(stats["magic-defence"]);
-          mDeTotal += mDe;
+            mDeTotal += mDe;
           var prBonus = parseInt(stats["prayer-bonus"]);
             prBonusTotal += prBonus;
           var strBonus = parseInt(stats["strength-bonus"]);
@@ -116,7 +139,7 @@ function calculateTotals()
           var rBonus = parseInt(stats["ranged-strength"]);
             rBonusTotal += rBonus;
           var mBonus = parseInt(stats["magic-strength"]);
-          mBonusTotal += mBonus;
+            mBonusTotal += mBonus;
 
           $('#stAtTotal').html("<img src='img/icons/stab-icon.png'> " + stAtTotal)
           $('#slAtTotal').html("<img src='img/icons/slash-icon.png'> " + slAtTotal)
@@ -147,12 +170,15 @@ function calculateTotals()
 
 }
 
+
+
 $('.item_holder').on('contentChange', function(event, data) {
   event.preventDefault();
   /* Act on the event */
   console.log("Content change trigged");
   calculateTotals();
 });
+
 function createSlots(slotArray)
 {
   slotArray.forEach(function(el){
@@ -160,7 +186,7 @@ function createSlots(slotArray)
     $('#'+el.id+' .item_holder').mousedown(function(event) {
         switch (event.which) {
             case 3:
-            //if left clicking on the weapon slot
+            //if right clicking on the weapon slot
             if(el.id === "weapon")
             {
               console.log("This is the weapon slot on right click");
@@ -174,11 +200,12 @@ function createSlots(slotArray)
                 $('#shield').css('display','inherit');
               }
             }
-
+            var oldID = $('#'+el.id+' .item_holder').attr('item-id');
             $('#'+el.id+' .item_holder').attr('src', "");
             $('#'+el.id+' .item_holder').removeAttr('item-id');
             $('#'+el.id+' .item_holder').trigger("contentChange");
-            tip.deactivate();
+            $('#'+el.id+' .item_holder').trigger("itemChange", [el.id, undefined, oldID]);
+            //$('#'+el.id).data("tooltip").deactivate();
             break;
         }
     });
@@ -211,7 +238,7 @@ function createSlots(slotArray)
 
               var formatted = name.split(" ").join("_");
               setItemSlot(el.id, id);
-              tip = new Opentip('#'+el.id+' .item_holder', createTooltipStats(stats, itemData), name);
+              $('#'+el.id).data("tooltip", new Opentip('#'+el.id+' .item_holder', createTooltipStats(stats, itemData), name));
 
               //if this is for the weapon slot
               if(el.id == "weapon")
@@ -314,27 +341,230 @@ function updateSlot(slotArray, slotID, itemID)
     //this is a weapon make sure to hide shield slot and clear it if the weapon is two handed
     $('#'+slotID+' .item_holder').attr('src', "img/item_img/" + id + ".png");
     $('#'+slotID+' .item_holder').attr('item-id', id);
-    tip = new Opentip('#'+slotID+' .item_holder', createTooltipStats(stats, itemData), name);
+    //tip = new Opentip('#'+slotID+' .item_holder', createTooltipStats(stats, itemData), name);
   }
-  else{
+  else
+  {
     $('#'+slotID+' .item_holder').attr('src', "img/item_img/" + id + ".png");
     $('#'+slotID+' .item_holder').attr('item-id', id);
-    tip = new Opentip('#'+slotID+' .item_holder', createTooltipStats(stats, itemData), name);
+    //tip = new Opentip('#'+slotID+' .item_holder', createTooltipStats(stats, itemData), name);
   }
 
 }
 
+var zeroStats = [];
+zeroStats["stab-attack"] = "0";
+zeroStats["slash-attack"]= "0";
+zeroStats["crush-attack"]= "0";
+zeroStats["magic-attack"]= "0";
+zeroStats["ranged-attack"]= "0";
+zeroStats["stab-defence"]= "0";
+zeroStats["slash-defence"]= "0";
+zeroStats["crush-defence"]= "0";
+zeroStats["magic-defence"]= "0";
+zeroStats["ranged-defence"]= "0";
+zeroStats["strength-bonus"]= "0";
+zeroStats["prayer-bonus"]= "0";
+zeroStats["ranged-strength"]= "0";
+zeroStats["magic-strength"]= "0";
 
-function setItemSlot(slotID, id)
+function compareItemsByID(itemOneID, itemTwoID)
 {
-  $('#'+slotID+' .item_holder').attr('src', "img/item_img/" + id + ".png");
-  $('#'+slotID+' .item_holder').attr('item-id', id);
+  var differenceArray = [];
+
+  var itemOne = $.grep(all, function(e){
+    return e.id == itemOneID;
+  });
+
+  var itemTwo = $.grep(all, function(e){
+    return e.id == itemTwoID;
+  });
+
+
+  var itemOneStats;
+  var itemTwoStats;
+
+  if(itemOneID === undefined)
+  {
+    console.log("item id one is null");
+    itemOneStats = zeroStats;
+  }
+  else
+  {
+    itemOneStats = itemOne[0].stats;
+  }
+
+  if(itemTwoID === undefined)
+  {
+    console.log("item id two is null");
+    itemTwoStats = zeroStats;
+  }
+  else
+  {
+    itemTwoStats = itemTwo[0].stats;
+  }
+
+
+  for (var stat in itemOneStats)
+  {
+    if (itemOneStats.hasOwnProperty(stat))
+    {
+      var itemStatDiff = parseInt(itemOneStats[stat]) - parseInt(itemTwoStats[stat]);
+      //console.log(itemStatDiff);
+      if(itemStatDiff != 0)
+      {
+        differenceArray[stat] = itemStatDiff;
+      }
+    }
+  }
+
+  return differenceArray;
+}
+
+
+//probably a much nicer way to do this
+//TODO: this
+function displayDifference(newID, oldID)
+{
+    var itemDiff = compareItemsByID(newID, oldID);
+    console.log(itemDiff);
+
+    for (var stat in itemDiff)
+    {
+      if (itemDiff.hasOwnProperty(stat))
+      {
+        var color = itemDiff[stat] > 0 ? 'green' : 'red';
+
+        switch (stat)
+        {
+          //attack bonuses
+          case "stab-attack":
+            $('#stAtDiff').text("(" +  itemDiff["stab-attack"]  + ")");
+            $('#stAtDiff').css('color', color);
+            $('#stAtDiff').css('position', 'absolute');
+            $('#stAtDiff').animate({top: -100}, 3500, function(){
+              $('#stAtDiff').text("");
+              $('#stAtDiff').css('top', 0);
+            });
+          break;
+          case "slash-attack":
+            $('#slAtDiff').text("(" +  itemDiff["slash-attack"]  + ")");
+            $('#slAtDiff').css('color', color);
+            $('#slAtDiff').css('position', 'absolute');
+            $('#slAtDiff').animate({top: -100}, 3500, function(){
+              $('#slAtDiff').text("");
+              $('#slAtDiff').css('top', 0);
+            });
+          break;
+          case "crush-attack":
+          $('#cAtDiff').text("(" +  itemDiff["crush-attack"]  + ")");
+          $('#cAtDiff').css('color', color);
+          $('#cAtDiff').css('position', 'absolute');
+          $('#cAtDiff').animate({top: -100}, 3500, function(){
+            $('#cAtDiff').text("");
+            $('#cAtDiff').css('top', 0);
+          });
+          break;
+          case "magic-attack":
+          $('#mAtDiff').text("(" +  itemDiff["magic-attack"]  + ")");
+          $('#mAtDiff').css('color', color);
+          $('#mAtDiff').css('position', 'absolute');
+          $('#mAtDiff').animate({top: -100}, 3500, function(){
+            $('#mAtDiff').text("");
+            $('#mAtDiff').css('top', 0);
+          });
+          break;
+          case "ranged-attack":
+          $('#rAtDiff').text("(" +  itemDiff["ranged-attack"]  + ")");
+          $('#rAtDiff').css('color', color);
+          $('#rAtDiff').css('position', 'absolute');
+          $('#rAtDiff').animate({top: -100}, 3500, function(){
+            $('#rAtDiff').text("");
+            $('#rAtDiff').css('top', 0);
+          });
+          break;
+
+          //defence Bonuses
+
+          case "stab-defence":
+          $('#stDeDiff').text("(" +  itemDiff["stab-defence"]  + ")");
+          $('#stDeDiff').css('color', color);
+          $('#stDeDiff').css('position', 'absolute');
+          $('#stDeDiff').animate({top: -100}, 3500, function(){
+            $('#stDeDiff').text("");
+            $('#stDeDiff').css('top', 0);
+          });
+          break;
+
+          case "slash-defence":
+          $('#slDeDiff').text("(" +  itemDiff["slash-defence"]  + ")");
+          $('#slDeDiff').css('color', color);
+          $('#slDeDiff').css('position', 'absolute');
+          $('#slDeDiff').animate({top: -100}, 3500, function(){
+            $('#slDeDiff').text("");
+            $('#slDeDiff').css('top', 0);
+          });
+          break;
+
+          case "crush-defence":
+          $('#cDeDiff').text("(" +  itemDiff["crush-defence"]  + ")");
+          $('#cDeDiff').css('color', color);
+          $('#cDeDiff').css('position', 'absolute');
+          $('#cDeDiff').animate({top: -100}, 3500, function(){
+            $('#cDeDiff').text("");
+            $('#cDeDiff').css('top', 0);
+          });
+          break;
+
+          case "magic-defence":
+          $('#mDeDiff').text("(" +  itemDiff["magic-defence"]  + ")");
+          $('#mDeDiff').css('color', color);
+          $('#mDeDiff').css('width', 150);
+          $('#mDeDiff').css('position', 'absolute');
+          $('#mDeDiff').animate({top: -100}, 3500, function(){
+            $('#mDeDiff').text("");
+            $('#mDeDiff').css('top', 0);
+          });
+          break;
+
+          case "ranged-defence":
+          $('#rDeDiff').text("(" +  itemDiff["ranged-defence"]  + ")");
+          $('#rDeDiff').css('color', color);
+          $('#rDeDiff').css('position', 'absolute');
+          $('#rDeDiff').animate({top: -100}, 3500, function(){
+            $('#rDeDiff').text("");
+            $('#rDeDiff').css('top', 0);
+          });
+          break;
+        }
+
+      }
+    }
+
+}
+
+$('.item_holder').on('itemChange', function(event, slotID, newID, oldID) {
+  event.preventDefault();
+  /* Act on the event */
+  console.log("item changed");
+displayDifference(newID, oldID);
+});
+
+function setItemSlot(slotID, newID)
+{
+  var oldID =  $('#'+slotID+' .item_holder').attr('item-id');
+  // if there was an id set when changing this then display the stat differences
+  $('#'+slotID+' .item_holder').trigger('itemChange', [slotID, newID, oldID]);
+  $('#'+slotID+' .item_holder').attr('src', "img/item_img/" + newID + ".png");
+  $('#'+slotID+' .item_holder').attr('item-id', newID);
   $('#'+slotID+' .item_holder').attr('slot', slotID);
   $('#'+slotID+' .item_holder').trigger("contentChange");
 }
 
 function clearItemSlot(slotID)
 {
+  var oldID =  $('#'+slotID+' .item_holder').attr('item-id');
+  $('#'+slotID+' .item_holder').trigger('itemChange', [slotID, newID, oldID]);
   $('#'+slotID+' .item_holder').attr('src', "");
   $('#'+slotID+' .item_holder').removeAttr('item-id');
   $('#'+slotID+' .item_holder').trigger("contentChange");
@@ -343,7 +573,7 @@ function clearItemSlot(slotID)
 function enableSlot(slotID)
 {
   //display shield again
-  $('#' + slotID).css('display','');
+  $('#shield').css('display','');
   //remove two hand attrib from weapon
   $('#weapon').removeAttr('twohand');
 }
