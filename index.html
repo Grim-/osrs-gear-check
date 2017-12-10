@@ -21,9 +21,9 @@
   <script src="js/jquery-ui.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/selectize.js"></script>
-  <script src="js/bootbox.min.js"></script>
   <script src="js/opentip-jquery.js"></script>
-  <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/jsplumb.js"></script>
+  <script src="js/jquery.html-svg-connect.js"></script>
 
   <script type="text/javascript" src="item-json/new/osrs-all-items.json"></script>
   <script type="text/javascript" src="item-json/new/osrs-items-ammo.json"></script>
@@ -59,7 +59,7 @@
 
       <div class="tab-content">
         <div id="stats-display" class="tab-pane fade in active">
-          <div class="row" style="margin-top:7px;">
+          <div class="row" style="margin-top:7px;"  id="mainContent">
 
             <div class="col-md-12 text-center page-header">
               <h4>OSRS Gear Stats Check</h4>
@@ -69,7 +69,7 @@
             </div>
 
 
-            <div class="col-md-3 text-center">
+            <div class="col-md-3 text-center" style="width: 20%;">
               <div id="inventory" class="inventory-container">
                 <h4>Inventory</h4>
                 <div id="head" class="item_slot">
@@ -129,116 +129,120 @@
               </div>
 
             </div>
-            <div class="col-md-4">
+
+            <div class="col-md-3" id="selector">
               <div class="row">
+                  <select class="selector" name="">
 
-                <div class="" id="text-stats" style="margin-top:12px">
-                  <ul class="list-inline">
-                    <h4 class="list-group-item-heading">Attack</h4>
-
-                    <li class="list-group-item clearfix">
-                      <div id="stAtTotal" class="pull-left">
-                      </div>
-
-                      <div id="stAtDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="slAtTotal" class="pull-left">
-                      </div>
-
-                      <div id="slAtDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="cAtTotal" class="pull-left">
-                      </div>
-
-                      <div id="cAtDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="mAtTotal" class="pull-left">
-                      </div>
-
-                      <div id="mAtDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="rAtTotal" class="pull-left">
-                      </div>
-
-                      <div id="rAtDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                  </ul>
-                </div>
-
-                <div class="" id="text-stats" style="margin-top:12px">
-                  <ul class="list-inline">
-                    <h4 class="list-group-item-heading">Defence</h4>
-
-                    <li class="list-group-item clearfix">
-                      <div id="stDeTotal" class="pull-left">
-                      </div>
-
-                      <div id="stDeDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="slDeTotal" class="pull-left">
-                      </div>
-
-                      <div id="slDeDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="cDeTotal" class="pull-left">
-                      </div>
-
-                      <div id="cDeDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="mDeTotal" class="pull-left">
-                      </div>
-
-                      <div id="mDeDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                    <li class="list-group-item clearfix">
-                      <div id="rDeTotal" class="pull-left">
-                      </div>
-
-                      <div id="rDeDiff" class="pull-right">
-                      </div>
-                    </li>
-
-                  </ul>
-                </div>
-
-                <div class="" id="text-stats" style="margin-top:12px">
-                  <ul class="list-inline">
-                    <h4 class="list-group-item-heading">Other Bonuses</h4>
-                    <li class="list-group-item" id="stBTotal"></li>
-                    <li class="list-group-item" id="prBTotal"></li>
-                    <li class="list-group-item" id="mBTotal"></li>
-                    <li class="list-group-item" id="rBTotal"></li>
-                  </ul>
-                </div>
+                  </select>
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
+              <div class="" id="text-stats">
+                <ul class="list-inline">
+                  <h4 class="list-group-item-heading">Attack</h4>
+
+                  <li class="list-group-item clearfix">
+                    <div id="stAtTotal" class="pull-left">
+                    </div>
+
+                    <div id="stAtDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="slAtTotal" class="pull-left">
+                    </div>
+
+                    <div id="slAtDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="cAtTotal" class="pull-left">
+                    </div>
+
+                    <div id="cAtDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="mAtTotal" class="pull-left">
+                    </div>
+
+                    <div id="mAtDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="rAtTotal" class="pull-left">
+                    </div>
+
+                    <div id="rAtDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+
+              <div class="" id="text-stats" style="margin-top:12px">
+                <ul class="list-inline">
+                  <h4 class="list-group-item-heading">Defence</h4>
+
+                  <li class="list-group-item clearfix">
+                    <div id="stDeTotal" class="pull-left">
+                    </div>
+
+                    <div id="stDeDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="slDeTotal" class="pull-left">
+                    </div>
+
+                    <div id="slDeDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="cDeTotal" class="pull-left">
+                    </div>
+
+                    <div id="cDeDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="mDeTotal" class="pull-left">
+                    </div>
+
+                    <div id="mDeDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                  <li class="list-group-item clearfix">
+                    <div id="rDeTotal" class="pull-left">
+                    </div>
+
+                    <div id="rDeDiff" class="pull-right">
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+
+              <div class="" id="text-stats" style="margin-top:12px">
+                <ul class="list-inline">
+                  <h4 class="list-group-item-heading">Other Bonuses</h4>
+                  <li class="list-group-item" id="stBTotal"></li>
+                  <li class="list-group-item" id="prBTotal"></li>
+                  <li class="list-group-item" id="mBTotal"></li>
+                  <li class="list-group-item" id="rBTotal"></li>
+                </ul>
+              </div>
+
               <button type="button" class="btn btn-default" id="save-gear-button">Generate URL</button>
             </div>
 

@@ -191,7 +191,7 @@ function createSlots(slotArray)
             {
               console.log("This is the weapon slot on right click");
               var wep = $('#weapon');
-
+              console.log($('#weapon').attr('twohand'));
               //and the weapon slot has the twohand atrrib
               if($('#weapon').attr('twohand'))
               {
@@ -218,79 +218,59 @@ function createSlots(slotArray)
     var offset = slot.offset();
     var selectCtrl;
     var tip;
-    var connector;
-    var lastID;
+    bootbox.dialog({
+        message: '<div class="select-'+el.id+'"></div>',
+        size: 'small',
+        backdrop : false,
+        title: 'Pick an item',
+        buttons: {
+          select: {
+            label: "Pick item",
+            classname : "btn-default",
+            callback: function(){
+              var id = $('.select-'+el.id).val();
+              var results = $.grep(el.data, function(e){ return e.id == id; });
+              var itemData = results[0];
+              var stats = itemData.stats;
+              var desc = itemData.description;
+              var name = selectCtrl[0].selectize.getItem(selectCtrl[0].selectize.getValue()).text();
+              //selectCtrl.selectize.setValue(selectCtrl[0].selectize.getValue());
 
+              var formatted = name.split(" ").join("_");
+              setItemSlot(el.id, id);
+              $('#'+el.id).data("tooltip", new Opentip('#'+el.id+' .item_holder', createTooltipStats(stats, itemData), name));
 
-    if(connector)
-    {
-      console.log("current id is " + el.id);
-      console.log("last id was " + lastID);
-      jsPlumb.detach(connector);
-    }
+              //if this is for the weapon slot
+              if(el.id == "weapon")
+              {
+                console.log("This is the weapon slot");
+                //and if the weapon is two handed
+                if(itemData.twohand == true)
+                {
+                  console.log("This is a 2h wep");
+                  setTwohanded();
+                }
+                else if(itemData.twohand == undefined)
+                {
+                  clearTwoHanded();
+                }
 
+              }
 
-    jsPlumb.ready(function() {
-      var container = document.body;
-      jsPlumb.setContainer(container);
-    connector =  jsPlumb.connect({
-        source: container.querySelector('#'+el.id),
-        target: container.querySelector("#selector"),
-        anchors:["Center", "Left"],
-        endpoint: "Blank",
-        connector: "Flowchart",
-        paintStyle:{strokeWidth:5,stroke:'rgb(70,130,180)'}
+              $('.item_holder').trigger("contentChange");
+
+            }
+          }
+        }
+
       });
-    });
 
-    console.log(connector);
-    selectCtrl =  $('.selector').selectize({
+    selectCtrl =  $('.select-'+el.id).selectize({
         options: el.data,
         labelField: "name",
         valueField : "id",
         maxItems : 1,
-        dataAttr: 'data-stats',
-        searchField: ["name", "attack-stab"],
-        onChange: function(id) {
-          //var id = $('.selector').val();
-          if(id)
-          {
-            console.log(id);
-
-            var results = $.grep(el.data, function(e){ return e.id == id; });
-            console.log(results);
-            var itemData = results[0];
-            var stats = itemData.stats;
-            var desc = itemData.description;
-            var name = selectCtrl[0].selectize.getItem(selectCtrl[0].selectize.getValue()).text();
-            //selectCtrl.selectize.setValue(selectCtrl[0].selectize.getValue());
-
-            var formatted = name.split(" ").join("_");
-            setItemSlot(el.id, id);
-            //$('#'+el.id).data("tooltip", new Opentip('#'+el.id+' .item_holder', createTooltipStats(stats, itemData), name));
-
-            //if this is for the weapon slot
-            if(el.id == "weapon")
-            {
-              console.log("This is the weapon slot");
-              //and if the weapon is two handed
-              if(itemData.twohand == true)
-              {
-                console.log("This is a 2h wep");
-                setTwohanded();
-              }
-              else if(itemData.twohand == undefined)
-              {
-                clearTwoHanded();
-              }
-
-            }
-
-            $('.item_holder').trigger("contentChange");
-
-          }
-
-        },
+        searchField: "name",
         render : {
           option : function(item, escape)
           {
@@ -299,68 +279,39 @@ function createSlots(slotArray)
             var iconElementEnd = "</b>";
             var itemNameElementStart = "<div class='item-name'>";
             var itemNameElementEnd = "</div>";
-             //#C8C8C8
-              display += "<div class='row' ";
-              display += "data-stats='"+JSON.stringify(item.stats)+"' ";
-              // display += "data-attack-slash='"+item.stats["slash-attack"]+"' ";
-              // display += "data-attack-crush='"+item.stats["crush-attack"]+"' ";
-              // display += "data-attack-magic='"+item.stats["magic-attack"]+"' ";
-              // display += "data-attack-ranged='"+item.stats["ranged-attack"]+"' ";
-              //
-              // display += "data-defence-stab='"+item.stats["stab-defence"]+"' ";
-              // display += "data-defence-slash='"+item.stats["slash-defence"]+"' ";
-              // display += "data-defence-crush='"+item.stats["crush-defence"]+"' ";
-              // display += "data-defence-magic='"+item.stats["magic-defence"]+"' ";
-              // display += "data-defence-ranged='"+item.stats["ranged-defence"]+"' ";
-              //
-              //
-              // display += "data-bonus-strength='"+item.stats["strength-bonus"]+"' ";
-              // display += "data-bonus-prayer='"+item.stats["prayer-bonus"]+"' ";
-              // display += "data-bonus-magic='"+item.stats["magic-strength"]+"' ";
-              // display += "data-bonus-ranged='"+item.stats["ranged-strength"]+"' ";
-              display += ">";
+            //#C8C8C8
+          display += "<div class='row'>";
+           display += "<div class='col-xs-12 text-center'>"+itemNameElementStart+"<img src='img/item_img/"+item.id+".png' >" + item.name + "</div>" + itemNameElementEnd;
+            display += "<div class='col-xs-12 text-center' style='padding:0'>";
+             display += "<img src='img/icons/stab-icon.png'>" + iconElementStart + item.stats["stab-attack"] + iconElementEnd;
+             display += "<img src='img/icons/slash-icon.png'>" + iconElementStart + item.stats["slash-attack"] + iconElementEnd;
+             display += "<img src='img/icons/crush-icon.png'>" + iconElementStart + item.stats["crush-attack"] + iconElementEnd;
+             display += "<img src='img/icons/magic-icon.png'>" + iconElementStart + item.stats["magic-attack"] + iconElementEnd;
+             display += "<img src='img/icons/ranged-icon.png'>" + iconElementStart + item.stats["ranged-attack"] + iconElementEnd;
+            display += "</div>";
 
-               display += "<div class='col-xs-12 text-center'>"+itemNameElementStart+"<img src='img/item_img/"+item.id+".png' >" + item.name + "</div>" + itemNameElementEnd;
-                display += "<div class='col-xs-12 text-center' style='padding:0'>";
-                 display += "<img src='img/icons/stab-icon.png'>" + iconElementStart + item.stats["stab-attack"] + iconElementEnd;
-                 display += "<img src='img/icons/slash-icon.png'>" + iconElementStart + item.stats["slash-attack"] + iconElementEnd;
-                 display += "<img src='img/icons/crush-icon.png'>" + iconElementStart + item.stats["crush-attack"] + iconElementEnd;
-                 display += "<img src='img/icons/magic-icon.png'>" + iconElementStart + item.stats["magic-attack"] + iconElementEnd;
-                 display += "<img src='img/icons/ranged-icon.png'>" + iconElementStart + item.stats["ranged-attack"] + iconElementEnd;
-                display += "</div>";
+            display += "<div class='col-xs-12 text-center' style='padding:0'>";
+             display += "<img src='img/icons/stab-icon.png'>"  + iconElementStart + item.stats["stab-defence"] + iconElementEnd;
+             display += "<img src='img/icons/slash-icon.png'>"  + iconElementStart + item.stats["slash-defence"] + iconElementEnd;
+             display += "<img src='img/icons/crush-icon.png'>"  + iconElementStart + item.stats["crush-defence"] + iconElementEnd;
+             display += "<img src='img/icons/magic-icon.png'>"  + iconElementStart + item.stats["magic-defence"] + iconElementEnd;
+             display += "<img src='img/icons/ranged-icon.png'>"  + iconElementStart + item.stats["ranged-defence"] + iconElementEnd;
+            display += "</div>";
 
-                display += "<div class='col-xs-12 text-center' style='padding:0'>";
-                 display += "<img src='img/icons/stab-icon.png'>"  + iconElementStart + item.stats["stab-defence"] + iconElementEnd;
-                 display += "<img src='img/icons/slash-icon.png'>"  + iconElementStart + item.stats["slash-defence"] + iconElementEnd;
-                 display += "<img src='img/icons/crush-icon.png'>"  + iconElementStart + item.stats["crush-defence"] + iconElementEnd;
-                 display += "<img src='img/icons/magic-icon.png'>"  + iconElementStart + item.stats["magic-defence"] + iconElementEnd;
-                 display += "<img src='img/icons/ranged-icon.png'>"  + iconElementStart + item.stats["ranged-defence"] + iconElementEnd;
-                display += "</div>";
+            display += "<div class='col-xs-12 text-center' style='padding:0'>";
+             display += "<img src='img/icons/strenght-icon.png'>"  + iconElementStart + item.stats["strength-bonus"] + iconElementEnd;
+             display += "<img src='img/icons/prayer-icon.png'>"  + iconElementStart + item.stats["prayer-bonus"] + iconElementEnd;
+             display += "<img src='img/icons/magicdamage-icon.png'>"  + iconElementStart + item.stats["magic-strength"] + iconElementEnd;
+             display += "<img src='img/icons/rangedstrength-icon.png'>"  + iconElementStart + item.stats["ranged-strength"] + iconElementEnd;
+            display += "</div>";
 
-                display += "<div class='col-xs-12 text-center' style='padding:0'>";
-                 display += "<img src='img/icons/strenght-icon.png'>"  + iconElementStart + item.stats["strength-bonus"] + iconElementEnd;
-                 display += "<img src='img/icons/prayer-icon.png'>"  + iconElementStart + item.stats["prayer-bonus"] + iconElementEnd;
-                 display += "<img src='img/icons/magicdamage-icon.png'>"  + iconElementStart + item.stats["magic-strength"] + iconElementEnd;
-                 display += "<img src='img/icons/rangedstrength-icon.png'>"  + iconElementStart + item.stats["ranged-strength"] + iconElementEnd;
-                display += "</div>";
+          display += "</div>";
 
-              display += "</div>";
-
-            return display;
-          },
-          item : function(item, escape)
-          {
-            var display = "<div>";
-            display += "<img src='img/item_img/"+item.id+".png'>";
-            display += "<b>"+item.name+"</b>";
-            display += "</div>"
             return display;
           }
         }
       });
-      lastID = el.id;
   });
-
 });
 }
 
