@@ -72,7 +72,7 @@ function calculateTotals()
     var cAtTotal = 0, stAtTotal= 0, slAtTotal= 0, rAtTotal= 0, mAtTotal= 0, cDeTotal= 0, stDeTotal= 0, slDeTotal= 0, rDeTotal= 0, mDeTotal= 0, prBonusTotal= 0, strBonusTotal= 0, rBonusTotal= 0, mBonusTotal = 0;
     if($('[item-id]').length === 0)
     {
-      console.log("no item ids");
+      //console.log("no item ids");
       var zero = "0";
       $('#stAtTotal').html("<img src='img/icons/stab-icon.png'> " + zero)
       $('#slAtTotal').html("<img src='img/icons/slash-icon.png'> " + zero)
@@ -181,6 +181,8 @@ $('.item_holder').on('contentChange', function(event, data) {
 
 function createSlots(slotArray)
 {
+  var lastID;
+  var connector;
   slotArray.forEach(function(el){
 
     $('#'+el.id+' .item_holder').mousedown(function(event) {
@@ -205,45 +207,41 @@ function createSlots(slotArray)
             $('#'+el.id+' .item_holder').removeAttr('item-id');
             $('#'+el.id+' .item_holder').trigger("contentChange");
             $('#'+el.id+' .item_holder').trigger("itemChange", [el.id, undefined, oldID]);
+            clearCompareSlots();
             //$('#'+el.id).data("tooltip").deactivate();
             break;
         }
     });
 
-
-
-
   $('#'+el.id).click(function(event) {
-    var slot = $('#'+el.id);
+    var currentID = '#'+el.id;
+    var slot = $(currentID);
     var offset = slot.offset();
     var selectCtrl;
     var tip;
-    var connector;
-    var lastID;
 
 
-    if(connector)
+    $(currentID + ' .eqp_slot').addClass('item_selected');
+    //if connector exists
+
+    if(currentID != lastID)
     {
-      console.log("current id is " + el.id);
-      console.log("last id was " + lastID);
-      jsPlumb.detach(connector);
+      $(lastID + ' .eqp_slot').removeClass('item_selected');
+      clearCompareSlots();
     }
 
 
-    jsPlumb.ready(function() {
-      var container = document.body;
-      jsPlumb.setContainer(container);
-    connector =  jsPlumb.connect({
-        source: container.querySelector('#'+el.id),
-        target: container.querySelector("#selector"),
-        anchors:["Center", "Left"],
-        endpoint: "Blank",
-        connector: "Flowchart",
-        paintStyle:{strokeWidth:5,stroke:'rgb(70,130,180)'}
-      });
-    });
+    if(connector != undefined)
+    {
+      connector._jsPlumb.instance.deleteEveryConnection();
+      connector = createConnectorToSelector(currentID, "color");
+    }
+    else
+    {
+      //console.log(connector);
+      connector = createConnectorToSelector(currentID, "color");
+    }
 
-    console.log(connector);
     selectCtrl =  $('.selector').selectize({
         options: el.data,
         labelField: "name",
@@ -255,10 +253,10 @@ function createSlots(slotArray)
           //var id = $('.selector').val();
           if(id)
           {
-            console.log(id);
+            //console.log(id);
 
             var results = $.grep(el.data, function(e){ return e.id == id; });
-            console.log(results);
+            //console.log(results);
             var itemData = results[0];
             var stats = itemData.stats;
             var desc = itemData.description;
@@ -272,11 +270,11 @@ function createSlots(slotArray)
             //if this is for the weapon slot
             if(el.id == "weapon")
             {
-              console.log("This is the weapon slot");
+              //console.log("This is the weapon slot");
               //and if the weapon is two handed
               if(itemData.twohand == true)
               {
-                console.log("This is a 2h wep");
+                //console.log("This is a 2h wep");
                 setTwohanded();
               }
               else if(itemData.twohand == undefined)
@@ -358,10 +356,33 @@ function createSlots(slotArray)
           }
         }
       });
-      lastID = el.id;
+    lastID = currentID;
   });
-
+  //end of click event
 });
+//end of for each slot
+}
+
+function createConnectorToSelector(sourceID, color)
+{
+  var container = document.body;
+  var connector;
+  jsPlumb.setContainer(container);
+  connector = jsPlumb.connect({
+      source: container.querySelector(sourceID),
+      target: container.querySelector("#selector"),
+      anchors:["Center", "Left"],
+      endpoint: "Blank",
+      connector: "Flowchart",
+      paintStyle:{ strokeWidth: 2, stroke: 'rgb(70,130,180)'}
+    });
+
+    return connector;
+}
+
+function removeConnector(sourceID)
+{
+    jsPlumb.remove(sourceID);
 }
 
 function updateSlot(slotArray, slotID, itemID)
@@ -592,12 +613,122 @@ function displayDifference(newID, oldID)
 
 }
 
-$('.item_holder').on('itemChange', function(event, slotID, newID, oldID) {
+$('.item_holder').on('itemChange', function(event, slotID, newID, currentID) {
   event.preventDefault();
   /* Act on the event */
   console.log("item changed");
-displayDifference(newID, oldID);
+  console.log("old id " + currentID);
+  console.log("new id " + newID);
+  displayDifference(newID, currentID);
+  if(currentID === undefined)
+  {
+    setCompareSlot("item_compare_old", newID);
+  }
+  else if(currentID && newID)
+  {
+    console.log("current id and new id are defiend");
+    setCompareSlot("item_compare_old", currentID);
+    setCompareSlot("item_compare_new", newID);
+  }
 });
+
+function clearCompareSlots()
+{
+  var oldId = "item_compare_old";
+  var newId = "item_compare_new";
+
+  $('#'+oldId+' .compare_slot_img').attr('src', "");
+  $('#'+oldId+' .compare_slot_name').text("");
+  $('#'+oldId+' .compare-st-at').text("");
+  $('#'+oldId+' .compare-sl-at').text("");
+  $('#'+oldId+' .compare-cr-at').text("");
+  $('#'+oldId+' .compare-mg-at').text("");
+  $('#'+oldId+' .compare-rg-at').text("");
+  //Defence
+  $('#'+oldId+' .compare-st-df').text("");
+  $('#'+oldId+' .compare-sl-df').text("");
+  $('#'+oldId+' .compare-cr-df').text("");
+  $('#'+oldId+' .compare-mg-df').text("");
+  $('#'+oldId+' .compare-rg-df').text("");
+  //bonuses
+  $('#'+oldId+' .compare-st-b').text("");
+  $('#'+oldId+' .compare-pr-b').text("");
+  $('#'+oldId+' .compare-md-b').text("");
+  $('#'+oldId+' .compare-rd-b').text("");
+
+  $('#'+newId+' .compare_slot_img').attr('src', "");
+  $('#'+newId+' .compare_slot_name').text("");
+  $('#'+newId+' .compare-st-at').text("");
+  $('#'+newId+' .compare-sl-at').text("");
+  $('#'+newId+' .compare-cr-at').text("");
+  $('#'+newId+' .compare-mg-at').text("");
+  $('#'+newId+' .compare-rg-at').text("");
+  //Defence
+  $('#'+newId+' .compare-st-df').text("");
+  $('#'+newId+' .compare-sl-df').text("");
+  $('#'+newId+' .compare-cr-df').text("");
+  $('#'+newId+' .compare-mg-df').text("");
+  $('#'+newId+' .compare-rg-df').text("");
+  //bonuses
+  $('#'+newId+' .compare-st-b').text("");
+  $('#'+newId+' .compare-pr-b').text("");
+  $('#'+newId+' .compare-md-b').text("");
+  $('#'+newId+' .compare-rd-b').text("");
+}
+function updateCompareSlots(newID, oldID)
+{
+  setCompareSlot("item_compare_old", oldID);
+
+}
+
+
+
+function setCompareSlot(slot, itemID)
+{
+  var itemInfo;
+  console.log(itemID);
+  if(itemID === undefined)
+  {
+    console.log("no item id to compare to for slot " + slot);
+    itemInfo = zeroStats;
+  }
+  else
+  {
+    itemInfo = getItemInfo(itemID);
+    $('#'+slot+' .compare_slot_img').attr('src', "img/item_img/" + itemID + ".png");
+    $('#'+slot+' .compare_slot_name').text(itemInfo.name);
+    $('#'+slot+' .compare-st-at').text(itemInfo.stats["stab-attack"]);
+    $('#'+slot+' .compare-sl-at').text(itemInfo.stats["slash-attack"]);
+    $('#'+slot+' .compare-cr-at').text(itemInfo.stats["crush-attack"]);
+    $('#'+slot+' .compare-mg-at').text(itemInfo.stats["magic-attack"]);
+    $('#'+slot+' .compare-rg-at').text(itemInfo.stats["ranged-attack"]);
+    //Defence
+    $('#'+slot+' .compare-st-df').text(itemInfo.stats["stab-defence"]);
+    $('#'+slot+' .compare-sl-df').text(itemInfo.stats["slash-defence"]);
+    $('#'+slot+' .compare-cr-df').text(itemInfo.stats["crush-defence"]);
+    $('#'+slot+' .compare-mg-df').text(itemInfo.stats["magic-defence"]);
+    $('#'+slot+' .compare-rg-df').text(itemInfo.stats["ranged-defence"]);
+    //bonuses
+    $('#'+slot+' .compare-st-b').text(itemInfo.stats["strength-bonus"]);
+    $('#'+slot+' .compare-pr-b').text(itemInfo.stats["prayer-bonus"]);
+    $('#'+slot+' .compare-md-b').text(itemInfo.stats["magic-strength"]);
+    $('#'+slot+' .compare-rd-b').text(itemInfo.stats["ranged-strength"]);
+  }
+
+}
+
+
+function compareCompareSlots()
+{
+  var oldId = "item_compare_old";
+  var newId = "item_compare_new";
+}
+
+function getItemInfo(itemID)
+{
+  var results = $.grep(all, function(e){ return e.id == itemID; });
+  return results[0];
+}
 
 function setItemSlot(slotID, newID)
 {
@@ -629,7 +760,7 @@ function enableSlot(slotID)
 
 function setTwohanded()
 {
-  console.log("This is a 2h wep");
+  //console.log("This is a 2h wep");
   //remove all shield properties so it isnt counted in count totals and hide it
   //hide shield slot
   $('#shield').css('display','none');
@@ -643,7 +774,7 @@ function setTwohanded()
 function clearTwoHanded()
 {
   //this is a one handed weapon display shield slot
-  console.log("This is a 1h wep");
+  //console.log("This is a 1h wep");
   //display shield again
   $('#shield').css('display','');
   //remove two hand attrib from weapon
@@ -677,7 +808,7 @@ $.extend({
       vars[hash[0]] = hash[1];
     }
     return vars;
-    console.log(hashes);
+    //console.log(hashes);
   },
   getUrlVar: function(name){
     return $.getUrlVars()[name];

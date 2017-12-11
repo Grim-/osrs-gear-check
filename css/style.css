@@ -18,7 +18,12 @@
 }
 .jtk-connector
 {
-  z-index: 5;
+}
+
+.item_selected {
+  -webkit-box-shadow: inset 0px 0px 73px 20px rgba(27,217,242,1);
+-moz-box-shadow: inset 0px 0px 73px 20px rgba(27,217,242,1);
+box-shadow: inset 0px 0px 73px 20px rgba(27,217,242,1);
 }
 .inventory-container
 {
@@ -40,7 +45,6 @@
 {
   width: 60px;
   margin: 0;
-
 }
 
 .opentip-container
@@ -52,12 +56,16 @@
   font-size: 20px;
   display: inline-block;
 }
-
+.eqp_slot
+{
+  z-index: 10;
+    position: relative;
+}
 .item_holder
 {
   position: absolute;
   width: 38px;
-    z-index: 20;
+  z-index: 20;
 }
 
 .stat-diff-positive
