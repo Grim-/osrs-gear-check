@@ -300,22 +300,6 @@ function createSlots(slotArray)
              //#C8C8C8
               display += "<div class='row' ";
               display += "data-stats='"+JSON.stringify(item.stats)+"' ";
-              // display += "data-attack-slash='"+item.stats["slash-attack"]+"' ";
-              // display += "data-attack-crush='"+item.stats["crush-attack"]+"' ";
-              // display += "data-attack-magic='"+item.stats["magic-attack"]+"' ";
-              // display += "data-attack-ranged='"+item.stats["ranged-attack"]+"' ";
-              //
-              // display += "data-defence-stab='"+item.stats["stab-defence"]+"' ";
-              // display += "data-defence-slash='"+item.stats["slash-defence"]+"' ";
-              // display += "data-defence-crush='"+item.stats["crush-defence"]+"' ";
-              // display += "data-defence-magic='"+item.stats["magic-defence"]+"' ";
-              // display += "data-defence-ranged='"+item.stats["ranged-defence"]+"' ";
-              //
-              //
-              // display += "data-bonus-strength='"+item.stats["strength-bonus"]+"' ";
-              // display += "data-bonus-prayer='"+item.stats["prayer-bonus"]+"' ";
-              // display += "data-bonus-magic='"+item.stats["magic-strength"]+"' ";
-              // display += "data-bonus-ranged='"+item.stats["ranged-strength"]+"' ";
               display += ">";
 
                display += "<div class='col-xs-12 text-center'>"+itemNameElementStart+"<img src='img/item_img/"+item.id+".png' >" + item.name + "</div>" + itemNameElementEnd;
@@ -494,6 +478,7 @@ function compareItemsByID(itemOneID, itemTwoID)
 
 //probably a much nicer way to do this
 //TODO: this
+//SEE: compareCompareSlots function for better way
 function displayDifference(newID, oldID)
 {
     var itemDiff = compareItemsByID(newID, oldID);
@@ -613,24 +598,7 @@ function displayDifference(newID, oldID)
 
 }
 
-$('.item_holder').on('itemChange', function(event, slotID, newID, currentID) {
-  event.preventDefault();
-  /* Act on the event */
-  console.log("item changed");
-  console.log("old id " + currentID);
-  console.log("new id " + newID);
-  displayDifference(newID, currentID);
-  if(currentID === undefined)
-  {
-    setCompareSlot("item_compare_old", newID);
-  }
-  else if(currentID && newID)
-  {
-    console.log("current id and new id are defiend");
-    setCompareSlot("item_compare_old", currentID);
-    setCompareSlot("item_compare_new", newID);
-  }
-});
+
 
 function clearCompareSlots()
 {
@@ -638,49 +606,43 @@ function clearCompareSlots()
   var newId = "item_compare_new";
 
   $('#'+oldId+' .compare_slot_img').attr('src', "");
-  $('#'+oldId+' .compare_slot_name').text("");
-  $('#'+oldId+' .compare-st-at').text("");
-  $('#'+oldId+' .compare-sl-at').text("");
-  $('#'+oldId+' .compare-cr-at').text("");
-  $('#'+oldId+' .compare-mg-at').text("");
-  $('#'+oldId+' .compare-rg-at').text("");
+  $('#'+oldId+'_name').text("");
+  $('#'+oldId+' .compare-stab-attack').text("");
+  $('#'+oldId+' .compare-slash-attack').text("");
+  $('#'+oldId+' .compare-crush-attack').text("");
+  $('#'+oldId+' .compare-magic-attack').text("");
+  $('#'+oldId+' .compare-ranged-attack').text("");
   //Defence
-  $('#'+oldId+' .compare-st-df').text("");
-  $('#'+oldId+' .compare-sl-df').text("");
-  $('#'+oldId+' .compare-cr-df').text("");
-  $('#'+oldId+' .compare-mg-df').text("");
-  $('#'+oldId+' .compare-rg-df').text("");
+  $('#'+oldId+' .compare-stab-defence').text("");
+  $('#'+oldId+' .compare-slash-defence').text("");
+  $('#'+oldId+' .compare-crush-defence').text("");
+  $('#'+oldId+' .compare-magic-defence').text("");
+  $('#'+oldId+' .compare-ranged-defence').text("");
   //bonuses
-  $('#'+oldId+' .compare-st-b').text("");
-  $('#'+oldId+' .compare-pr-b').text("");
-  $('#'+oldId+' .compare-md-b').text("");
-  $('#'+oldId+' .compare-rd-b').text("");
+  $('#'+oldId+' .compare-strength-bonus').text("");
+  $('#'+oldId+' .compare-prayer-bpnus').text("");
+  $('#'+oldId+' .compare-magic-strength').text("");
+  $('#'+oldId+' .compare-ranged-strength').text("");
 
   $('#'+newId+' .compare_slot_img').attr('src', "");
-  $('#'+newId+' .compare_slot_name').text("");
-  $('#'+newId+' .compare-st-at').text("");
-  $('#'+newId+' .compare-sl-at').text("");
-  $('#'+newId+' .compare-cr-at').text("");
-  $('#'+newId+' .compare-mg-at').text("");
-  $('#'+newId+' .compare-rg-at').text("");
+  $('#'+newId+'_name').text("");
+  $('#'+newId+' .compare-stab-attack').text("");
+  $('#'+newId+' .compare-slash-attack').text("");
+  $('#'+newId+' .compare-crush-attack').text("");
+  $('#'+newId+' .compare-magic-attack').text("");
+  $('#'+newId+' .compare-ranged-attack').text("");
   //Defence
-  $('#'+newId+' .compare-st-df').text("");
-  $('#'+newId+' .compare-sl-df').text("");
-  $('#'+newId+' .compare-cr-df').text("");
-  $('#'+newId+' .compare-mg-df').text("");
-  $('#'+newId+' .compare-rg-df').text("");
+  $('#'+newId+' .compare-stab-defence').text("");
+  $('#'+newId+' .compare-slash-defence').text("");
+  $('#'+newId+' .compare-crush-defence').text("");
+  $('#'+newId+' .compare-magic-defence').text("");
+  $('#'+newId+' .compare-ranged-defence').text("");
   //bonuses
-  $('#'+newId+' .compare-st-b').text("");
-  $('#'+newId+' .compare-pr-b').text("");
-  $('#'+newId+' .compare-md-b').text("");
-  $('#'+newId+' .compare-rd-b').text("");
+  $('#'+newId+' .compare-strength-bonus').text("");
+  $('#'+newId+' .compare-prayer-bpnus').text("");
+  $('#'+newId+' .compare-magic-strength').text("");
+  $('#'+newId+' .compare-ranged-strength').text("");
 }
-function updateCompareSlots(newID, oldID)
-{
-  setCompareSlot("item_compare_old", oldID);
-
-}
-
 
 
 function setCompareSlot(slot, itemID)
@@ -695,33 +657,65 @@ function setCompareSlot(slot, itemID)
   else
   {
     itemInfo = getItemInfo(itemID);
-    $('#'+slot+' .compare_slot_img').attr('src', "img/item_img/" + itemID + ".png");
-    $('#'+slot+' .compare_slot_name').text(itemInfo.name);
-    $('#'+slot+' .compare-st-at').text(itemInfo.stats["stab-attack"]);
-    $('#'+slot+' .compare-sl-at').text(itemInfo.stats["slash-attack"]);
-    $('#'+slot+' .compare-cr-at').text(itemInfo.stats["crush-attack"]);
-    $('#'+slot+' .compare-mg-at').text(itemInfo.stats["magic-attack"]);
-    $('#'+slot+' .compare-rg-at').text(itemInfo.stats["ranged-attack"]);
-    //Defence
-    $('#'+slot+' .compare-st-df').text(itemInfo.stats["stab-defence"]);
-    $('#'+slot+' .compare-sl-df').text(itemInfo.stats["slash-defence"]);
-    $('#'+slot+' .compare-cr-df').text(itemInfo.stats["crush-defence"]);
-    $('#'+slot+' .compare-mg-df').text(itemInfo.stats["magic-defence"]);
-    $('#'+slot+' .compare-rg-df').text(itemInfo.stats["ranged-defence"]);
-    //bonuses
-    $('#'+slot+' .compare-st-b').text(itemInfo.stats["strength-bonus"]);
-    $('#'+slot+' .compare-pr-b').text(itemInfo.stats["prayer-bonus"]);
-    $('#'+slot+' .compare-md-b').text(itemInfo.stats["magic-strength"]);
-    $('#'+slot+' .compare-rd-b').text(itemInfo.stats["ranged-strength"]);
+    // $('#'+slot+' .compare_slot_img').attr('src', "img/item_img/" + itemID + ".png");
+    $('#'+slot+'_name').text(itemInfo.name);
+    console.log(slot);
+    for (var stat in itemInfo.stats) {
+      if (itemInfo.stats.hasOwnProperty(stat)) {
+        $('#'+slot+' .compare-' + stat).text(itemInfo.stats[stat]);
+      }
+    }
   }
 
 }
 
 
-function compareCompareSlots()
+function compareCompareSlots(currentID, newID)
 {
   var oldId = "item_compare_old";
   var newId = "item_compare_new";
+
+  var currentItemStats = getItemInfo(currentID).stats;
+  var newItemStats = getItemInfo(newID).stats;
+
+  for (var stat in currentItemStats) {
+    if (currentItemStats.hasOwnProperty(stat)) {
+        //color current item stats
+        if( parseInt(currentItemStats[stat]) > parseInt(newItemStats[stat]))
+        {
+          // console.log("Current item has greater " + stat + " than new item");
+            $('#'+oldId+' .compare-' + stat).css("color", "green");
+        }
+        else if( parseInt(currentItemStats[stat]) < parseInt(newItemStats[stat]))
+        {
+          // console.log("Current item has less " + stat + " than new item");
+          $('#'+oldId+' .compare-' + stat).css("color", "red");
+        }
+
+        //color new item stats
+        if(parseInt(newItemStats[stat]) > parseInt(currentItemStats[stat]))
+        {
+          // console.log("new item has greater " + stat + " than old item");
+          $('#'+newId+' .compare-' + stat).css("color", "green");
+        }
+        else if(parseInt(newItemStats[stat]) < parseInt(currentItemStats[stat]))
+        {
+          // console.log("new item has less " + stat + " than old item");
+          $('#'+newId+' .compare-' + stat).css("color", "red");
+        }
+
+        if(parseInt(currentItemStats[stat]) === parseInt(newItemStats[stat]))
+        {
+          // console.log("new item has greater " + stat + " than old item");
+          $('#'+oldId+' .compare-' + stat).css("color", "white");
+        }
+        else if(parseInt(newItemStats[stat]) === parseInt(currentItemStats[stat]))
+        {
+            $('#'+newId+' .compare-' + stat).css("color", "white");
+        }
+
+    }
+  }
 }
 
 function getItemInfo(itemID)

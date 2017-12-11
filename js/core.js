@@ -56,5 +56,27 @@ $('#save-gear-button').on('click', function(event) {
   prompt("URL Generated: ", window.location.href.split('?')[0] + "?" + jQuery.param(saveObject));
 });
 
+$('.item_holder').on('itemChange', function(event, slotID, newID, currentID) {
+  event.preventDefault();
+  /* Act on the event */
+  // console.log("item changed");
+  // console.log("old id " + currentID);
+  // console.log("new id " + newID);
+  displayDifference(newID, currentID);
+  if(currentID === undefined)
+  {
+    setCompareSlot("item_compare_old", newID);
+  }
+  else if(currentID && newID)
+  {
+    console.log("current id and new id are defiend");
+    setCompareSlot("item_compare_old", currentID);
+    setCompareSlot("item_compare_new", newID);
+    compareCompareSlots(currentID, newID);
+  }
+
+
+});
+
 
 });
