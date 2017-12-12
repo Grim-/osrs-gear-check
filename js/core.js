@@ -19,10 +19,13 @@ var slotArray = [
   {id: "weapon", data: weapon}
 ];
 
-
+loadSets(".set_selector");
 
 createSlots(slotArray);
 calculateTotals();
+
+
+
 
 //check if there is any id params in url first if so load them
 var params = checkUrlForParams(window.location.href);
@@ -54,6 +57,13 @@ $('#save-gear-button').on('click', function(event) {
   });
   console.log(saveObject);
   prompt("URL Generated: ", window.location.href.split('?')[0] + "?" + jQuery.param(saveObject));
+});
+
+$('#load-gear-button').on('click', function(event) {
+  event.preventDefault();
+  /* Act on the event */
+  var setID = $('.set_selector').val();
+  loadFromSetID(setID);
 });
 
 $('.item_holder').on('itemChange', function(event, slotID, newID, currentID) {

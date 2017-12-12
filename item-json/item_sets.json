@@ -1,0 +1,24 @@
+itemSets = [
+  {
+    "id" : 1,
+    "name" : "Full Guthan's",
+    "set" :
+    {
+        "head" : 4724,
+        "weapon" : 4726,
+        "chest" : 4728,
+        "legs" : 4730
+    }
+  },
+  {
+    "id" : 2,
+    "name" : "Full Dharoks",
+    "set" :
+    {
+        "head" : 4716,
+        "weapon" : 4718,
+        "chest" : 4720,
+        "legs" : 4722
+    }
+  }
+]

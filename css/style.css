@@ -28,6 +28,13 @@
     /*border-style: solid;
     border-width: 1px;*/
 }
+
+.bottom-bar
+{
+  margin-top: 10px;
+  background-color: slategrey;
+  padding: 5px;
+}
 .compare_slot_img
 {
   /*width: 60px;*/

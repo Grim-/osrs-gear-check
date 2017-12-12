@@ -175,7 +175,7 @@ function calculateTotals()
 $('.item_holder').on('contentChange', function(event, data) {
   event.preventDefault();
   /* Act on the event */
-  console.log("Content change trigged");
+  //console.log("Content change trigged");
   calculateTotals();
 });
 
@@ -450,7 +450,7 @@ function compareItemsByID(itemOneID, itemTwoID)
 
   if(itemTwoID === undefined)
   {
-    console.log("item id two is null");
+    //console.log("item id two is null");
     itemTwoStats = zeroStats;
   }
   else
@@ -482,7 +482,7 @@ function compareItemsByID(itemOneID, itemTwoID)
 function displayDifference(newID, oldID)
 {
     var itemDiff = compareItemsByID(newID, oldID);
-    console.log(itemDiff);
+    //console.log(itemDiff);
 
     for (var stat in itemDiff)
     {
@@ -602,53 +602,53 @@ function displayDifference(newID, oldID)
 
 function clearCompareSlots()
 {
-  var oldId = "item_compare_old";
-  var newId = "item_compare_new";
+    var oldId = "item_compare_old";
+    var newId = "item_compare_new";
 
-  $('#'+oldId+' .compare_slot_img').attr('src', "");
-  $('#'+oldId+'_name').text("");
-  $('#'+oldId+' .compare-stab-attack').text("");
-  $('#'+oldId+' .compare-slash-attack').text("");
-  $('#'+oldId+' .compare-crush-attack').text("");
-  $('#'+oldId+' .compare-magic-attack').text("");
-  $('#'+oldId+' .compare-ranged-attack').text("");
-  //Defence
-  $('#'+oldId+' .compare-stab-defence').text("");
-  $('#'+oldId+' .compare-slash-defence').text("");
-  $('#'+oldId+' .compare-crush-defence').text("");
-  $('#'+oldId+' .compare-magic-defence').text("");
-  $('#'+oldId+' .compare-ranged-defence').text("");
-  //bonuses
-  $('#'+oldId+' .compare-strength-bonus').text("");
-  $('#'+oldId+' .compare-prayer-bpnus').text("");
-  $('#'+oldId+' .compare-magic-strength').text("");
-  $('#'+oldId+' .compare-ranged-strength').text("");
+    $('#'+oldId+' .compare_slot_img').attr('src', "");
+    //$('#'+oldId+'_name').text("Old Item");
+    $('#'+oldId+' .compare-stab-attack').text("");
+    $('#'+oldId+' .compare-slash-attack').text("");
+    $('#'+oldId+' .compare-crush-attack').text("");
+    $('#'+oldId+' .compare-magic-attack').text("");
+    $('#'+oldId+' .compare-ranged-attack').text("");
+    //Defence
+    $('#'+oldId+' .compare-stab-defence').text("");
+    $('#'+oldId+' .compare-slash-defence').text("");
+    $('#'+oldId+' .compare-crush-defence').text("");
+    $('#'+oldId+' .compare-magic-defence').text("");
+    $('#'+oldId+' .compare-ranged-defence').text("");
+    //bonuses
+    $('#'+oldId+' .compare-strength-bonus').text("");
+    $('#'+oldId+' .compare-prayer-bpnus').text("");
+    $('#'+oldId+' .compare-magic-strength').text("");
+    $('#'+oldId+' .compare-ranged-strength').text("");
 
-  $('#'+newId+' .compare_slot_img').attr('src', "");
-  $('#'+newId+'_name').text("");
-  $('#'+newId+' .compare-stab-attack').text("");
-  $('#'+newId+' .compare-slash-attack').text("");
-  $('#'+newId+' .compare-crush-attack').text("");
-  $('#'+newId+' .compare-magic-attack').text("");
-  $('#'+newId+' .compare-ranged-attack').text("");
-  //Defence
-  $('#'+newId+' .compare-stab-defence').text("");
-  $('#'+newId+' .compare-slash-defence').text("");
-  $('#'+newId+' .compare-crush-defence').text("");
-  $('#'+newId+' .compare-magic-defence').text("");
-  $('#'+newId+' .compare-ranged-defence').text("");
-  //bonuses
-  $('#'+newId+' .compare-strength-bonus').text("");
-  $('#'+newId+' .compare-prayer-bpnus').text("");
-  $('#'+newId+' .compare-magic-strength').text("");
-  $('#'+newId+' .compare-ranged-strength').text("");
+    $('#'+newId+' .compare_slot_img').attr('src', "");
+  //  $('#'+newId+'_name').text("New Item");
+    $('#'+newId+' .compare-stab-attack').text("");
+    $('#'+newId+' .compare-slash-attack').text("");
+    $('#'+newId+' .compare-crush-attack').text("");
+    $('#'+newId+' .compare-magic-attack').text("");
+    $('#'+newId+' .compare-ranged-attack').text("");
+    //Defence
+    $('#'+newId+' .compare-stab-defence').text("");
+    $('#'+newId+' .compare-slash-defence').text("");
+    $('#'+newId+' .compare-crush-defence').text("");
+    $('#'+newId+' .compare-magic-defence').text("");
+    $('#'+newId+' .compare-ranged-defence').text("");
+    //bonuses
+    $('#'+newId+' .compare-strength-bonus').text("");
+    $('#'+newId+' .compare-prayer-bpnus').text("");
+    $('#'+newId+' .compare-magic-strength').text("");
+    $('#'+newId+' .compare-ranged-strength').text("");
 }
 
 
 function setCompareSlot(slot, itemID)
 {
   var itemInfo;
-  console.log(itemID);
+  //console.log(itemID);
   if(itemID === undefined)
   {
     console.log("no item id to compare to for slot " + slot);
@@ -724,6 +724,12 @@ function getItemInfo(itemID)
   return results[0];
 }
 
+
+function loadFromSetID(setID)
+{
+  var results = $.grep(itemSets, function(e){ return e.id == setID; });
+  window.location.replace(window.location.href.split('?')[0] + "?" + jQuery.param(results[0].set));
+}
 function setItemSlot(slotID, newID)
 {
   var oldID =  $('#'+slotID+' .item_holder').attr('item-id');
@@ -773,6 +779,18 @@ function clearTwoHanded()
   $('#shield').css('display','');
   //remove two hand attrib from weapon
   $('#weapon').removeAttr('twohand');
+}
+
+function loadSets(selector)
+{
+  console.log("loading");
+  selectCtrl =  $(selector).selectize({
+      options: itemSets,
+      labelField: "name",
+      valueField : "id",
+      maxItems : 1,
+      searchField: ["name"],
+    });
 }
 
 function getURLParameters(url){
