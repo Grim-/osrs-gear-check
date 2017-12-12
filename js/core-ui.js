@@ -607,41 +607,41 @@ function clearCompareSlots()
 
     $('#'+oldId+' .compare_slot_img').attr('src', "");
     //$('#'+oldId+'_name').text("Old Item");
-    $('#'+oldId+' .compare-stab-attack').text("");
-    $('#'+oldId+' .compare-slash-attack').text("");
-    $('#'+oldId+' .compare-crush-attack').text("");
-    $('#'+oldId+' .compare-magic-attack').text("");
-    $('#'+oldId+' .compare-ranged-attack').text("");
+    $('#'+oldId+' .compare-stab-attack').text("0");
+    $('#'+oldId+' .compare-slash-attack').text("0");
+    $('#'+oldId+' .compare-crush-attack').text("0");
+    $('#'+oldId+' .compare-magic-attack').text("0");
+    $('#'+oldId+' .compare-ranged-attack').text("0");
     //Defence
-    $('#'+oldId+' .compare-stab-defence').text("");
-    $('#'+oldId+' .compare-slash-defence').text("");
-    $('#'+oldId+' .compare-crush-defence').text("");
-    $('#'+oldId+' .compare-magic-defence').text("");
-    $('#'+oldId+' .compare-ranged-defence').text("");
+    $('#'+oldId+' .compare-stab-defence').text("0");
+    $('#'+oldId+' .compare-slash-defence').text("0");
+    $('#'+oldId+' .compare-crush-defence').text("0");
+    $('#'+oldId+' .compare-magic-defence').text("0");
+    $('#'+oldId+' .compare-ranged-defence').text("0");
     //bonuses
-    $('#'+oldId+' .compare-strength-bonus').text("");
-    $('#'+oldId+' .compare-prayer-bpnus').text("");
-    $('#'+oldId+' .compare-magic-strength').text("");
-    $('#'+oldId+' .compare-ranged-strength').text("");
+    $('#'+oldId+' .compare-strength-bonus').text("0");
+    $('#'+oldId+' .compare-prayer-bpnus').text("0");
+    $('#'+oldId+' .compare-magic-strength').text("0");
+    $('#'+oldId+' .compare-ranged-strength').text("0");
 
     $('#'+newId+' .compare_slot_img').attr('src', "");
   //  $('#'+newId+'_name').text("New Item");
-    $('#'+newId+' .compare-stab-attack').text("");
-    $('#'+newId+' .compare-slash-attack').text("");
-    $('#'+newId+' .compare-crush-attack').text("");
-    $('#'+newId+' .compare-magic-attack').text("");
-    $('#'+newId+' .compare-ranged-attack').text("");
+    $('#'+newId+' .compare-stab-attack').text("0");
+    $('#'+newId+' .compare-slash-attack').text("0");
+    $('#'+newId+' .compare-crush-attack').text("0");
+    $('#'+newId+' .compare-magic-attack').text("0");
+    $('#'+newId+' .compare-ranged-attack').text("0");
     //Defence
-    $('#'+newId+' .compare-stab-defence').text("");
-    $('#'+newId+' .compare-slash-defence').text("");
-    $('#'+newId+' .compare-crush-defence').text("");
-    $('#'+newId+' .compare-magic-defence').text("");
-    $('#'+newId+' .compare-ranged-defence').text("");
+    $('#'+newId+' .compare-stab-defence').text("0");
+    $('#'+newId+' .compare-slash-defence').text("0");
+    $('#'+newId+' .compare-crush-defence').text("0");
+    $('#'+newId+' .compare-magic-defence').text("0");
+    $('#'+newId+' .compare-ranged-defence').text("0");
     //bonuses
-    $('#'+newId+' .compare-strength-bonus').text("");
-    $('#'+newId+' .compare-prayer-bpnus').text("");
-    $('#'+newId+' .compare-magic-strength').text("");
-    $('#'+newId+' .compare-ranged-strength').text("");
+    $('#'+newId+' .compare-strength-bonus').text("0");
+    $('#'+newId+' .compare-prayer-bpnus').text("0");
+    $('#'+newId+' .compare-magic-strength').text("0");
+    $('#'+newId+' .compare-ranged-strength').text("0");
 }
 
 
