@@ -727,8 +727,13 @@ function getItemInfo(itemID)
 
 function loadFromSetID(setID)
 {
-  var results = $.grep(itemSets, function(e){ return e.id == setID; });
-  window.location.replace(window.location.href.split('?')[0] + "?" + jQuery.param(results[0].set));
+
+  if(setID != 0)
+  {
+    var results = $.grep(itemSets, function(e){ return e.id == setID; });
+    window.location.replace(window.location.href.split('?')[0] + "?" + jQuery.param(results[0].set));
+  }
+
 }
 function setItemSlot(slotID, newID)
 {
@@ -791,6 +796,9 @@ function loadSets(selector)
       maxItems : 1,
       searchField: ["name"],
     });
+var opt = {id:0, name:"Select a Item Set..."};
+selectCtrl[0].selectize.addOption(opt);
+selectCtrl[0].selectize.setValue("0");
 }
 
 function getURLParameters(url){
