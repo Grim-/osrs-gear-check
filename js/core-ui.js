@@ -340,11 +340,11 @@ function createSlots(slotArray)
           }
         }
       });
-    lastID = currentID;
+      lastID = currentID;
+    });
+    //end of click event
   });
-  //end of click event
-});
-//end of for each slot
+  //end of for each slot
 }
 
 function createConnectorToSelector(sourceID, color)
@@ -357,7 +357,7 @@ function createConnectorToSelector(sourceID, color)
       target: container.querySelector("#selector"),
       anchors:["Center", "Left"],
       endpoint: "Blank",
-      connector: "Flowchart",
+      connector: ["Flowchart", {stub: 45, midpoint: 0.4, cornerRadius: 3, gap: 2}],
       paintStyle:{ strokeWidth: 2, stroke: 'rgb(70,130,180)'}
     });
 
@@ -474,7 +474,6 @@ function compareItemsByID(itemOneID, itemTwoID)
 
   return differenceArray;
 }
-
 
 //probably a much nicer way to do this
 //TODO: this
@@ -598,8 +597,6 @@ function displayDifference(newID, oldID)
 
 }
 
-
-
 function clearCompareSlots()
 {
     var oldId = "item_compare_old";
@@ -644,7 +641,6 @@ function clearCompareSlots()
     $('#'+newId+' .compare-ranged-strength').text("0");
 }
 
-
 function setCompareSlot(slot, itemID)
 {
   var itemInfo;
@@ -658,7 +654,9 @@ function setCompareSlot(slot, itemID)
   {
     itemInfo = getItemInfo(itemID);
     // $('#'+slot+' .compare_slot_img').attr('src', "img/item_img/" + itemID + ".png");
-    $('#'+slot+'_name').text(itemInfo.name);
+
+    $('#'+slot+'_name').text("")
+    $('#'+slot+'_name').append("<a href='http://services.runescape.com/m=itemdb_oldschool/viewitem?obj=" +  itemID +"'>" + itemInfo.name+ "</a>");
     console.log(slot);
     for (var stat in itemInfo.stats) {
       if (itemInfo.stats.hasOwnProperty(stat)) {
@@ -668,7 +666,6 @@ function setCompareSlot(slot, itemID)
   }
 
 }
-
 
 function compareCompareSlots(currentID, newID)
 {
@@ -724,7 +721,6 @@ function getItemInfo(itemID)
   return results[0];
 }
 
-
 function loadFromSetID(setID)
 {
 
@@ -735,6 +731,23 @@ function loadFromSetID(setID)
   }
 
 }
+
+function loadSets(selector)
+{
+  console.log("loading");
+  selectCtrl =  $(selector).selectize({
+    options: itemSets,
+    labelField: "name",
+    valueField : "id",
+    maxItems : 1,
+    searchField: ["name", "tags"],
+  });
+  //set the default
+  var opt = {id:0, name:"Select a Item Set..."};
+  selectCtrl[0].selectize.addOption(opt);
+  selectCtrl[0].selectize.setValue("0");
+}
+
 function setItemSlot(slotID, newID)
 {
   var oldID =  $('#'+slotID+' .item_holder').attr('item-id');
@@ -776,6 +789,7 @@ function setTwohanded()
   //set wep property twohand true
   $('#weapon').attr('twohand', true);
 }
+
 function clearTwoHanded()
 {
   //this is a one handed weapon display shield slot
@@ -786,20 +800,6 @@ function clearTwoHanded()
   $('#weapon').removeAttr('twohand');
 }
 
-function loadSets(selector)
-{
-  console.log("loading");
-  selectCtrl =  $(selector).selectize({
-      options: itemSets,
-      labelField: "name",
-      valueField : "id",
-      maxItems : 1,
-      searchField: ["name"],
-    });
-var opt = {id:0, name:"Select a Item Set..."};
-selectCtrl[0].selectize.addOption(opt);
-selectCtrl[0].selectize.setValue("0");
-}
 
 function getURLParameters(url){
 
@@ -815,7 +815,6 @@ function getURLParameters(url){
     }
     return result;
 }
-
 
 $.extend({
   getUrlVars: function(){
@@ -834,7 +833,6 @@ $.extend({
     return $.getUrlVars()[name];
   }
 });
-
 
 function checkUrlForParams(url)
 {

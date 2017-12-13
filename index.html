@@ -64,13 +64,17 @@
               <div class="col-md-12 text-center page-header">
                 <h4>How To Use: </h4>
                 <p>Click an <kbd><kbd>inventory slot</kbd></kbd></p>
-                <p>You can use the item <kbd><kbd>select field</kbd></kbd> to scroll and select an item</p>
-                <p>or type in the item name also works with partial matches such as <kbd>d dag</kbd> or <kbd>s godsword</kbd></p>
+                <p>You can use the item <kbd><kbd>select field</kbd></kbd> to scroll and select an item.</p>
+                <p>or you can type in the item name also works with partial matches such as <kbd>d dag</kbd> or <kbd>s godsword</kbd></p>
                 <br>
-                <p>Click <kbd><kbd>Generate URL</kbd></kbd> button to generate a url to share your set up with others</p>
-                <p><b>To add an item </b><kbd><kbd>left click</kbd></kbd></p>
-                <p><b>To remove an item </b><kbd><kbd>right click</kbd></kbd></p>
-                <p>You can also use the sets already made to get started using the <kbd>Load Set</kbd> button after picking a set from the drop down</p>
+
+                <p><b>To add an item </b><kbd><kbd>left click</kbd></kbd> a inventory slot.</p>
+                <p><b>To remove an item </b><kbd><kbd>right click</kbd></kbd> a inventory slot.</p>
+
+
+                <br>
+                <p>Click <kbd><kbd>Generate URL</kbd></kbd> button to generate a url to share your set up with others.</p>
+                <p>You can also use the sets already made to get started using the <kbd>Load Set</kbd> button after picking a set from the drop down (more sets to be added)</p>
               </div>
 
               <div class="col-md-3 compare_new_container">
@@ -203,9 +207,8 @@
               </div>
 
               <div class="col-md-3 text-center" style="width: 20%;">
-                <h4>Pick an Item</h4>
+                <h4>Click an Item Slot</h4>
                 <div id="inventory" class="inventory-container">
-                  <h4>Inventory</h4>
                   <div id="head" class="item_slot">
                     <img src="" class="item_holder" data-element="tooltip" slot="head">
                     <img src="img/inventory_slots/head_slot.png" alt="0" class="eqp_slot">
@@ -266,8 +269,9 @@
 
               <div class="col-md-6">
                 <div class="row" style="margin-right:-90px">
-                  <div class="col-md-10 col-md-offset-1">
+                  <div class="col-md-10">
                     <div id="selector">
+                      <span class="label label-default" style="z-index: 10; position: relative;">Item Selector</span>
                       <select class="selector" name="">
 
                       </select>
@@ -431,7 +435,7 @@
               </div>
 
               <div class="col-md-2">
-                <button type="button" class="btn btn-default" id="load-gear-button">Load Set</button>
+                <button type="button" class="btn btn-default" id="load-gear-button">Load Set</button> <a href="#" data-toggle="tooltip" data-placement="left" title="You can use this to load premade sets (WIP) you can even search by tag! eg: 'barrows', 'zulrah' "><i class="glyphicon glyphicon-question-sign" style="font-size: 20px"></i></a>
               </div>
 
             </div>
@@ -440,6 +444,7 @@
           <div id="stats-compare" class="tab-pane fade">
             <div class="col-md-12 text-center page-header">
               <h4>OSRS Gear  Compare</h4>
+              <p>Coming Soon</p>
             </div>
           </div>
         </div>

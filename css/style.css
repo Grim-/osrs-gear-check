@@ -67,12 +67,10 @@
 .inventory-container
 {
   width: 204px;
-  background-color: #3F3529;
+  background-color: #32383e;
   color: #fff;
   height: 275px;
   position: relative;
-  border-style: inset;
-  border-color: darkslategrey;
 }
 
 .opentip-container .opentip .header h1
@@ -130,6 +128,9 @@
 #head
 {
   width: 100%;
+  /* padding-top: 10px; */
+  position: absolute;
+  top: 30px;
 }
 .selectize-item-header{
   display: inline-block;
